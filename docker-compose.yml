@@ -1,0 +1,31 @@
+webserver:
+
+  image: wordpress
+
+  ports:
+    - "80:80"
+
+  volumes_from:
+    - wpdata
+
+  links:
+    - "dbserver:mysql"
+
+phpmyadminserver:
+
+  image: phpmyadmin/phpmyadmin
+
+  ports:
+    - "8080:80"
+
+  links:
+    - "dbserver:db"
+
+dbserver:
+  image: mysql
+
+  volumes_from:
+    - mysqldata
+
+  environment:
+    MYSQL_ROOT_PASSWORD: admin
